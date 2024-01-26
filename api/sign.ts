@@ -27,8 +27,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === "OPTIONS") return res.status(200).end();
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const { acc = "", chain = "mainnet" } = req.query;
-  if (!acc || !["mainnet", "testnet"].includes(chain)) return res.status(400).end();
+  const { acc = "", chain = "doid" } = req.query;
+  if (!acc || !["doid", "testnet"].includes(chain)) return res.status(400).end();
   if (!(await verifyAccount(acc, chain))) return res.status(403).end();
   let sig;
   try {
@@ -37,9 +37,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   return res.json({ sig });
 }
 
-type ChainName = "mainnet" | "testnet";
+type ChainName = "doid" | "testnet";
 export const Chain = {
-  mainnet: {
+  doid: {
     chainId: "0xd01d",
     boardContract: "0xc6712F4B2EeDe48D5BA8f09Db56C820F4A236828",
     verifyingContract: "0x1395Dd9C0E35af75e7e1BC7846f14c53558A8F6F",
